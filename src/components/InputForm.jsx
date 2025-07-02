@@ -22,7 +22,7 @@ export default function InputForm(props) {
                         }
                     }} 
                     onChange={(e) => {setLocalTask(e.target.value); (e.target.value.trim().length ? setError(false): setError(true));}} 
-                    className={`w-140 h-10 outline-none box-border rounded-sm text-lg p-2 border-1 ${error ? 'border-red-500' : 'border-gray-800'}`}
+                    className={`w-140 max-lg:w-100 max-md:w-80 max-sm:w-50 h-10 outline-none box-border rounded-sm text-lg p-2 border-1 ${error ? 'border-red-500' : 'border-gray-800'}`}
                     type="text"
                     ref={props.inputRef}
                     placeholder='Введите задачу'
