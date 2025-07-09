@@ -3,10 +3,17 @@ import TaskList from './components/TaskList'
 import InputForm from './components/InputForm'
 import './App.css'
 
+type TaskType = {
+  id: string;
+  text: string;
+  completed: boolean;
+  isEditing: boolean;
+}
+
 function App() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState<TaskType[]>([]);
     const [filter, setFilter] = useState('All');
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const filteredTasks = tasks.filter((task) => {
         if(filter === 'Active') {
@@ -25,7 +32,7 @@ function App() {
     const hasCompleted = tasks.some(task => task.completed);
 
     useEffect(() => {
-        inputRef.current.focus();
+        inputRef.current?.focus();
         const savedTasks = localStorage.getItem('tasks');
         if(savedTasks) {
             setTasks(JSON.parse(savedTasks));
@@ -36,7 +43,7 @@ function App() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
-    function toggleCompleted(id) {
+    function toggleCompleted(id: string) {
         setTasks(tasks.map((task) => {
             if(task.id === id) {
                 return {...task, completed: !task.completed};
@@ -46,7 +53,7 @@ function App() {
         }))
     }
 
-    function onStartEdit(id) {
+    function onStartEdit(id: string) {
         setTasks(tasks.map((task) => {
             if(task.id === id) {
                 return {...task, isEditing: true};
@@ -56,7 +63,7 @@ function App() {
         }))
     }
 
-    function onSaveEdit(id, newText) {
+    function onSaveEdit(id: string, newText: string) {
         setTasks(tasks.map((task) => {
             if(task.id === id) {
                 return {...task, text: newText, isEditing: false};
@@ -66,7 +73,7 @@ function App() {
         }))
     }
 
-    function onCancelEdit(id) {
+    function onCancelEdit(id: string) {
         setTasks(tasks.map((task) => {
             if(task.id === id) {
                 return {...task, isEditing: false};
@@ -87,7 +94,7 @@ function App() {
         <div className="w-4xl h-220 bg-gray-900 rounded-xl shadow-xl flex items-center flex-col max-lg:max-w-2xl max-md:max-w-xl max-sm:max-w-96 max-sm:h-200">
         <InputForm
             inputRef={inputRef}
-            onAdd={(task) =>
+            onAdd={(task: string) =>
             setTasks([
                 ...tasks,
                 { id: crypto.randomUUID(), text: task, completed: false, isEditing: false },
@@ -98,7 +105,7 @@ function App() {
         <h1 className="text-3xl font-bold text-center">Задачи:</h1>
 
         <div className="flex justify-between flex-wrap w-96 mt-5 max-sm:flex-col max-sm:w-70">
-            {['All', 'Active', 'Completed'].map((type) => (
+            {['All', 'Active', 'Completed'].map((type: string) => (
                 <button key={type} className={`px-4 py-2 max-sm:mt-1 rounded-sm transition ${
                     filter === type ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
                     onClick={() => setFilter(type)}>{type === 'All' ? 'Все ' + totalTasks : type === 'Active' ? 'Активные ' + remaining : 'Выполненные ' + completed}

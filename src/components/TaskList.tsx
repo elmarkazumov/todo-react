@@ -1,10 +1,26 @@
-import Task from './Task.jsx'
+import Task from './Task'
 
-export default function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}) {
+type TaskProps = {
+    id: string,
+    text: string,
+    completed: boolean,
+    isEditing: boolean,
+}
+
+type TaskListProps = {
+    tasks: TaskProps[],
+    onDelete: (id: string) => void,
+    toggleCompleted: (id: string) => void,
+    onStartEdit: (id: string) => void,
+    onSaveEdit: (id: string, nexText: string) => void,
+    onCancelEdit: (id: string) => void,
+}
+
+export default function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
     return (
             <div className='min-h-13 overflow-auto w-12/12 flex flex-col items-center'>
                 {
-                    tasks.map((task) => 
+                    tasks.map((task: TaskProps) => 
                         <Task key={task.id} 
                             text={task.text} 
                             completed={task.completed} 
