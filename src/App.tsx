@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import TaskList from './components/TaskList'
 import InputForm from './components/InputForm'
+
+import Header from './layouts/Header'
+import Main from './layouts/Main'
+
 import './App.css'
 
 type TaskType = {
@@ -90,44 +94,49 @@ function App() {
     }
 
     return (
-    <div className="min-h-screen text-white flex justify-center items-center w-full">
-        <div className="w-4xl h-220 bg-gray-900 rounded-xl shadow-xl flex items-center flex-col max-lg:max-w-2xl max-md:max-w-xl max-sm:max-w-96 max-sm:h-200">
-        <InputForm
-            inputRef={inputRef}
-            onAdd={(task: string) =>
-            setTasks([
-                ...tasks,
-                { id: crypto.randomUUID(), text: task, completed: false, isEditing: false },
-            ])
-            }
-        />
-
-        <h1 className="text-3xl font-bold text-center">Задачи:</h1>
-
-        <div className="flex justify-between flex-wrap w-96 mt-5 max-sm:flex-col max-sm:w-70">
-            {['All', 'Active', 'Completed'].map((type: string) => (
-                <button key={type} className={`px-4 py-2 max-sm:mt-1 rounded-sm transition ${
-                    filter === type ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
-                    onClick={() => setFilter(type)}>{type === 'All' ? 'Все ' + totalTasks : type === 'Active' ? 'Активные ' + remaining : 'Выполненные ' + completed}
-                </button>
-            ))}
-
-            <button disabled={!hasCompleted}
-            className={`px-4 py-2 max-sm:mt-1 rounded-sm transition sm:m-auto sm:mt-5 ${
-            hasCompleted ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`} 
-            onClick={deleteCompletedTasks}>Удалить выполненное</button>
+        <div className="min-h-screen bg-white">
+            <Header />
+            <Main />
         </div>
 
-        <TaskList
-            tasks={filteredTasks}
-            toggleCompleted={toggleCompleted}
-            onStartEdit={onStartEdit}
-            onSaveEdit={onSaveEdit}
-            onCancelEdit={onCancelEdit}
-            onDelete={(id) => setTasks(tasks.filter((task) => task.id !== id))}
-        />
-        </div>
-    </div>
+    // <div className="min-h-screen text-white flex justify-center items-center w-full">
+    //     <div className="w-4xl h-220 bg-gray-900 rounded-xl shadow-xl flex items-center flex-col max-lg:max-w-2xl max-md:max-w-xl max-sm:max-w-96 max-sm:h-200">
+    //     <InputForm
+    //         inputRef={inputRef}
+    //         onAdd={(task: string) =>
+    //         setTasks([
+    //             ...tasks,
+    //             { id: crypto.randomUUID(), text: task, completed: false, isEditing: false },
+    //         ])
+    //         }
+    //     />
+
+    //     <h1 className="text-3xl font-bold text-center">Задачи:</h1>
+
+    //     <div className="flex justify-between flex-wrap w-96 mt-5 max-sm:flex-col max-sm:w-70">
+    //         {['All', 'Active', 'Completed'].map((type: string) => (
+    //             <button key={type} className={`px-4 py-2 max-sm:mt-1 rounded-sm transition ${
+    //                 filter === type ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+    //                 onClick={() => setFilter(type)}>{type === 'All' ? 'Все ' + totalTasks : type === 'Active' ? 'Активные ' + remaining : 'Выполненные ' + completed}
+    //             </button>
+    //         ))}
+
+    //         <button disabled={!hasCompleted}
+    //         className={`px-4 py-2 max-sm:mt-1 rounded-sm transition sm:m-auto sm:mt-5 ${
+    //         hasCompleted ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'}`} 
+    //         onClick={deleteCompletedTasks}>Удалить выполненное</button>
+    //     </div>
+
+    //     <TaskList
+    //         tasks={filteredTasks}
+    //         toggleCompleted={toggleCompleted}
+    //         onStartEdit={onStartEdit}
+    //         onSaveEdit={onSaveEdit}
+    //         onCancelEdit={onCancelEdit}
+    //         onDelete={(id) => setTasks(tasks.filter((task) => task.id !== id))}
+    //     />
+    //     </div>
+    // </div>
     );
 }
 
