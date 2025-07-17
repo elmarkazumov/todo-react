@@ -12,7 +12,7 @@ type TaskListProps = {
     onDelete: (id: string) => void,
     toggleCompleted: (id: string) => void,
     onStartEdit: (id: string) => void,
-    onSaveEdit: (id: string, nexText: string) => void,
+    onSaveEdit: (id: string, newText: string) => void,
     onCancelEdit: (id: string) => void,
 }
 

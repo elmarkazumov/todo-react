@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-        <header className="w-full p-4 flex justify-center items-center bg-white shadow">
+        <header className="w-full h-20 flex justify-center items-center shadow">
             <div className="w-[1440px] flex justify-between items-center">
                 <nav className="text-sm font-medium">
                     <a href="">Add Task</a>
