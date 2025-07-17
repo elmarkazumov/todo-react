@@ -1,6 +1,6 @@
 import Task from './Task'
 
-type TaskProps = {
+export type TaskProps = {
     id: string,
     text: string,
     completed: boolean,
@@ -16,7 +16,7 @@ type TaskListProps = {
     onCancelEdit: (id: string) => void,
 }
 
-export default function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
+export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
     return (
             <div className='min-h-13 overflow-auto w-12/12 flex flex-col items-center'>
                 {
@@ -29,7 +29,7 @@ export default function TaskList({tasks, onDelete, toggleCompleted, onStartEdit,
                             onSaveEdit={(newText) => onSaveEdit(task.id, newText)}
                             onCancelEdit={() => onCancelEdit(task.id)}
                             onToggle={() => toggleCompleted(task.id)} 
-                            onDelete={() => onDelete(task.id)} 
+                            onDelete={() => onDelete(task.id)}
                         />
                     )
                 }

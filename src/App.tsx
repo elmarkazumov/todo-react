@@ -1,13 +1,34 @@
 import Header from './layouts/Header'
 import Main from './layouts/Main'
+import { useState } from "react";
+import useTasks from "./hooks/useTasks";
+import AddTaskModal from './components/AddTaskModal';
 
 import './App.css'
 
 function App() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+      const taskState = useTasks();
+    
         return (
         <div className="h-screen flex flex-col items-center">
-            <Header />
-            <Main />
+            <Header onAddTaskClick={() => setIsModalOpen(true)} />
+            <AddTaskModal addTask={taskState.addTask} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <Main 
+                tasks={taskState.filteredTasks}
+                filter={taskState.filter}
+                setFilter={taskState.setFilter}
+                totalTasks={taskState.totalTasks}
+                completed={taskState.completed}
+                remaining={taskState.remaining}
+                hasCompleted={taskState.hasCompleted}
+                deleteCompletedTasks={taskState.deleteCompletedTasks}
+                toggleCompleted={taskState.toggleCompleted}
+                onStartEdit={taskState.onStartEdit}
+                onSaveEdit={taskState.onSaveEdit}
+                onCancelEdit={taskState.onCancelEdit}
+                onDelete={taskState.onDelete}
+                />
         </div>
 
     // <div className="min-h-screen text-white flex justify-center items-center w-full">

@@ -1,20 +1,37 @@
-import UseTasks from "../hooks/useTasks";
-import TaskList from "../components/TaskList";
+import {TaskProps, TaskList} from "../components/TaskList";
 
-export default function Main() {
-    const {
-        tasks,
-        setTasks,
-        filter,
-        setFilter,
-        filteredTasks,
-        hasCompleted,
-        toggleCompleted,
-        deleteCompletedTasks,
-        onCancelEdit,
-        onSaveEdit,
-        onStartEdit
-    } = UseTasks();
+
+type MainProps = {
+  tasks: TaskProps[];
+  filter: string;
+  setFilter: (filter: string) => void;
+  totalTasks: number;
+  completed: number;
+  remaining: number;
+  hasCompleted: boolean;
+  deleteCompletedTasks: () => void;
+  toggleCompleted: (id: string) => void;
+  onStartEdit: (id: string) => void;
+  onSaveEdit: (id: string, newText: string) => void;
+  onCancelEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+};
+
+export default function Main({
+    tasks,
+    filter,
+    setFilter,
+    totalTasks,
+    completed,
+    remaining,
+    hasCompleted,
+    deleteCompletedTasks,
+    toggleCompleted,
+    onStartEdit,
+    onSaveEdit,
+    onCancelEdit,
+    onDelete,
+}: MainProps) {
 
   return (
         <main className="flex-1 flex flex-col items-center w-[1440px]">
@@ -36,12 +53,12 @@ export default function Main() {
         </div>
 
         <TaskList
-            tasks={filteredTasks}
+            tasks={tasks}
             toggleCompleted={toggleCompleted}
             onStartEdit={onStartEdit}
             onSaveEdit={onSaveEdit}
             onCancelEdit={onCancelEdit}
-            onDelete={(id) => setTasks(tasks.filter((task) => task.id !== id))}
+            onDelete={onDelete}
         />
 
     </main>

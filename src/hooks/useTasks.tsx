@@ -8,7 +8,7 @@ interface TaskType {
   isEditing: boolean,
 }
 
-export default function UseTasks() {
+export default function useTasks() {
     const [tasks, setTasks] = useState<TaskType[]>([]);
     const [filter, setFilter] = useState('All');
 
@@ -49,6 +49,13 @@ export default function UseTasks() {
         }))
     }
 
+    function addTask(task: string) {
+        setTasks([
+            ...tasks,
+            { id: crypto.randomUUID(), text: task, completed: false, isEditing: false },
+])
+    }
+
     function onStartEdit(id: string) {
         setTasks(tasks.map((task) => {
             if(task.id === id) {
@@ -85,11 +92,16 @@ export default function UseTasks() {
         }
     }
 
+    function onDelete(id: string) {
+        setTasks(tasks.filter((task) => task.id !== id));
+    }
+
     return {
         tasks,
         setTasks,
         filter,
         setFilter,
+        addTask,
         filteredTasks,
         totalTasks,
         completed,
@@ -99,6 +111,7 @@ export default function UseTasks() {
         deleteCompletedTasks,
         onCancelEdit,
         onSaveEdit,
-        onStartEdit,    
+        onStartEdit,
+        onDelete,
     };
 }
