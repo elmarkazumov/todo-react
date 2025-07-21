@@ -50,7 +50,7 @@ export default function useTasks() {
         }))
     }
 
-    function addTask(task: string, description: string) {
+    function addTask(task: string, description?: string) {
         setTasks([
             ...tasks,
             { id: crypto.randomUUID(), text: task, description: description, completed: false, isEditing: false },

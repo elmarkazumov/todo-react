@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type InputFormProps = {
     onSumbit: () => void,
-    addTask: (text: string, description: string) => void,
+    addTask: (text: string, description?: string) => void,
 }
 
 export default function InputForm({onSumbit, addTask}: InputFormProps) {
