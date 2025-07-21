@@ -18,7 +18,7 @@ type TaskListProps = {
 
 export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
     return (
-            <div className='min-h-13 overflow-auto w-12/12 flex flex-col items-center'>
+            <div className='mt-5 w-[1300px] grid grid-cols-3 gap-10'>
                 {
                     tasks.map((task: TaskProps) => 
                         <Task key={task.id} 
