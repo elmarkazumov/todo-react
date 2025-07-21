@@ -3,6 +3,7 @@ import Task from './Task'
 export type TaskProps = {
     id: string,
     text: string,
+    description?: string,
     completed: boolean,
     isEditing: boolean,
 }
@@ -22,7 +23,8 @@ export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveE
                 {
                     tasks.map((task: TaskProps) => 
                         <Task key={task.id} 
-                            text={task.text} 
+                            text={task.text}
+                            description={task?.description}
                             completed={task.completed} 
                             isEditing={task.isEditing}
                             onStartEdit={() => onStartEdit(task.id)}

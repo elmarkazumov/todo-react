@@ -4,6 +4,7 @@ import { useEffect } from "react";
 interface TaskType {
   id: string,
   text: string,
+  description?: string,
   completed: boolean,
   isEditing: boolean,
 }
@@ -49,10 +50,10 @@ export default function useTasks() {
         }))
     }
 
-    function addTask(task: string) {
+    function addTask(task: string, description: string) {
         setTasks([
             ...tasks,
-            { id: crypto.randomUUID(), text: task, completed: false, isEditing: false },
+            { id: crypto.randomUUID(), text: task, description: description, completed: false, isEditing: false },
 ])
     }
 
