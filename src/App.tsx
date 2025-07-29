@@ -31,7 +31,7 @@ function App() {
     
         return (
         <div className="h-screen flex flex-col items-center">
-            <Header onAddTaskClick={() => setIsModalOpen(true)} /> 
+            <Header searchedTask={taskState.searchTask} onChange={taskState.setSearchTask} onAddTaskClick={() => setIsModalOpen(true)} /> 
 
             <TaskModal
                 isOpen={isModalOpen}

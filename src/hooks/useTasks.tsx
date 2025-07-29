@@ -12,8 +12,10 @@ interface TaskType {
 export default function useTasks() {
     const [tasks, setTasks] = useState<TaskType[]>([]);
     const [filter, setFilter] = useState('All');
+    const [searchTask, setSearchTask] = useState('');
 
-    const filteredTasks = tasks.filter((task) => {
+    const filteredTasks = tasks
+    .filter(task => {
         if(filter === 'Active') {
             return !task.completed;
         }
@@ -21,6 +23,12 @@ export default function useTasks() {
             return task.completed;
         }
         return true;
+    })
+    .filter(task => {
+        const query = searchTask.toLowerCase();
+        return (
+            task.text.toLowerCase().includes(query)
+        );
     });
 
     useEffect(() => {
@@ -59,6 +67,8 @@ export default function useTasks() {
     return {
         tasks,
         setTasks,
+        searchTask, 
+        setSearchTask,
         filter,
         setFilter,
         addTask,
