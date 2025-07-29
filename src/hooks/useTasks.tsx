@@ -23,12 +23,6 @@ export default function useTasks() {
         return true;
     });
 
-    const totalTasks = tasks.length;
-    const completed = tasks.filter((task) => task.completed).length;
-    const remaining = totalTasks - completed;
-
-    const hasCompleted = tasks.some(task => task.completed);
-
     useEffect(() => {
         const savedTasks = localStorage.getItem('tasks');
         if(savedTasks) {
@@ -56,42 +50,7 @@ export default function useTasks() {
             { id: crypto.randomUUID(), text: task, description: description, completed: false, isEditing: false },
 ])
     }
-
-    function onStartEdit(id: string) {
-        setTasks(tasks.map((task) => {
-            if(task.id === id) {
-                return {...task, isEditing: true};
-            }
-
-            return task;
-        }))
-    }
-
-    function onSaveEdit(id: string, newText: string) {
-        setTasks(tasks.map((task) => {
-            if(task.id === id) {
-                return {...task, text: newText, isEditing: false};
-            }
-
-            return task;
-        }))
-    }
-
-    function onCancelEdit(id: string) {
-        setTasks(tasks.map((task) => {
-            if(task.id === id) {
-                return {...task, isEditing: false};
-            }
-
-            return task;
-        }))
-    }   
-
-    function deleteCompletedTasks() {
-        if(window.confirm("Удалить выполненные задачи?")) {
-            setTasks(tasks.filter(task => !task.completed));
-        }
-    }
+ 
 
     function onDelete(id: string) {
         setTasks(tasks.filter((task) => task.id !== id));
@@ -104,15 +63,7 @@ export default function useTasks() {
         setFilter,
         addTask,
         filteredTasks,
-        totalTasks,
-        completed,
-        remaining,
-        hasCompleted,
         toggleCompleted,
-        deleteCompletedTasks,
-        onCancelEdit,
-        onSaveEdit,
-        onStartEdit,
         onDelete,
     };
 }

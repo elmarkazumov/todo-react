@@ -5,7 +5,6 @@ export type TaskProps = {
     text: string,
     description?: string,
     completed: boolean,
-    isEditing: boolean,
 }
 
 type TaskListProps = {
@@ -13,28 +12,23 @@ type TaskListProps = {
     onDelete: (id: string) => void,
     toggleCompleted: (id: string) => void,
     onStartEdit: (id: string) => void,
-    onSaveEdit: (id: string, newText: string) => void,
-    onCancelEdit: (id: string) => void,
 }
 
-export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
+export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit}: TaskListProps) {
     return (
-            <div className='mt-5 w-[1300px] grid grid-cols-3 gap-10'>
-                {
-                    tasks.map((task: TaskProps) => 
-                        <Task key={task.id} 
-                            text={task.text}
-                            description={task?.description}
-                            completed={task.completed} 
-                            isEditing={task.isEditing}
-                            onStartEdit={() => onStartEdit(task.id)}
-                            onSaveEdit={(newText) => onSaveEdit(task.id, newText)}
-                            onCancelEdit={() => onCancelEdit(task.id)}
-                            onToggle={() => toggleCompleted(task.id)} 
-                            onDelete={() => onDelete(task.id)}
-                        />
-                    )
-                }
-            </div>
+        <div className='mt-5 w-[1300px] grid grid-cols-3 gap-10'>
+            {
+                tasks.map((task: TaskProps) => 
+                    <Task key={task.id} 
+                        text={task.text}
+                        description={task?.description}
+                        completed={task.completed} 
+                        onStartEdit={() => onStartEdit(task.id)}
+                        onToggle={() => toggleCompleted(task.id)} 
+                        onDelete={() => onDelete(task.id)}
+                    />
+                )
+            }
+        </div>
     )
 }
