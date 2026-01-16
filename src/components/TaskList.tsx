@@ -1,10 +1,10 @@
 import Task from './Task'
 
-type TaskProps = {
+export type TaskProps = {
     id: string,
     text: string,
+    description?: string,
     completed: boolean,
-    isEditing: boolean,
 }
 
 type TaskListProps = {
@@ -12,27 +12,23 @@ type TaskListProps = {
     onDelete: (id: string) => void,
     toggleCompleted: (id: string) => void,
     onStartEdit: (id: string) => void,
-    onSaveEdit: (id: string, nexText: string) => void,
-    onCancelEdit: (id: string) => void,
 }
 
-export default function TaskList({tasks, onDelete, toggleCompleted, onStartEdit, onSaveEdit, onCancelEdit}: TaskListProps) {
+export function TaskList({tasks, onDelete, toggleCompleted, onStartEdit}: TaskListProps) {
     return (
-            <div className='min-h-13 overflow-auto w-12/12 flex flex-col items-center'>
-                {
-                    tasks.map((task: TaskProps) => 
-                        <Task key={task.id} 
-                            text={task.text} 
-                            completed={task.completed} 
-                            isEditing={task.isEditing}
-                            onStartEdit={() => onStartEdit(task.id)}
-                            onSaveEdit={(newText) => onSaveEdit(task.id, newText)}
-                            onCancelEdit={() => onCancelEdit(task.id)}
-                            onToggle={() => toggleCompleted(task.id)} 
-                            onDelete={() => onDelete(task.id)} 
-                        />
-                    )
-                }
-            </div>
+        <div className='mt-5 w-[1300px] grid grid-cols-3 gap-10'>
+            {
+                tasks.map((task: TaskProps) => 
+                    <Task key={task.id} 
+                        text={task.text}
+                        description={task?.description}
+                        completed={task.completed} 
+                        onStartEdit={() => onStartEdit(task.id)}
+                        onToggle={() => toggleCompleted(task.id)} 
+                        onDelete={() => onDelete(task.id)}
+                    />
+                )
+            }
+        </div>
     )
 }
